@@ -23,7 +23,7 @@ class Net(nn.Module):
         return x
 
 model = Net()
-model.load_state_dict(torch.load('Assari_classification_rembg.pt', map_location=torch.device('cpu')))
+# model.load_state_dict(torch.load('Assari_classification_rembg.pt', map_location=torch.device('cpu')))
 model.eval()
 
 # 前処理の定義
@@ -47,9 +47,11 @@ async def make_predictions(file: UploadFile = File(...)):
         probs = F.softmax(output[0], dim=0)
         pred_class = torch.argmax(probs).item()
 
-        return JSONResponse(content={"prediction": pred_class, "probability": probs[pred_class].item()})
+        return JSONResponse(content={"prediction": pred_class, "probability": probs.tolist()})
     
     except Exception as e:
         return HTTPException(status_code=500, detail=str(e))
 
-    
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
