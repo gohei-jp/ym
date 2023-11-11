@@ -1,6 +1,6 @@
-streamlit = "*"
-fastapi = "*"
-torch = "==2.0.1"
-torchvision = "==0.15.2"
-uvicorn = "*"
-python-multipart = "*"
+streamlit
+fastapi
+torch==2.0.1
+torchvision==0.15.2
+uvicorn
+python-multipart
